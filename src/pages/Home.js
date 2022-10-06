@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { WEATHER_APP_APT_KEY } from "../API_KEYS";
-
-// URL for accessing OpenWeatherAPI with Query Params
-const openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=Orlando&appid=${WEATHER_APP_APT_KEY}`;
+import WeatherCard from "../components/WeatherCard";
+import { useSearchParams } from "react-router-dom";
+import Header from "../components/Header";
 
 function Home() {
   // Value stored in state for weather data
   const [weatherData, setWeatherData] = useState({});
+  const [city, setCity] = useState("New York City");
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    const cityToQuery = searchParams.get("city") || city;
+    setCity(cityToQuery);
     // Query OpenWeatherAPT for weather data
     // make request to OpenWeather
     axios
-      .get(openWeatherURL)
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityToQuery}&appid=${WEATHER_APP_APT_KEY}&units=imperial`)
       .then(function (response) {
         setWeatherData(response.data);
       })
@@ -23,14 +27,35 @@ function Home() {
       });
   }, []);
 
-  // Display this weather data in our app
+  const { cloudiness, currentTemp, highTemp, humidity, lowTemp, weatherType, windSpeed } = useMemo(() => {
+    const weatherMain = weatherData.main || {};
+    return {
+      cloudiness: weatherData.clouds && weatherData.clouds.all,
+      currentTemp: weatherMain.temp,
+      highTemp: weatherMain.temp_max,
+      humidity: weatherMain.humidity,
+      lowTemp: weatherMain.temp_min,
+      weatherType: weatherData.weather && weatherData.weather[0].main,
+      windSpeed: weatherData.wind && weatherData.wind.speed,
+    };
+  }, [weatherData]);
+
   console.log("state value", weatherData);
 
   return (
     <div>
+      <Header></Header>
       <h1>Weather App</h1>
-      <h2>{weatherData.name}</h2>
-      <p>Humidity: {weatherData.main && weatherData.main.humidity}%</p>
+      <WeatherCard
+        city={city}
+        weatherType={weatherType}
+        currentTemp={currentTemp}
+        highTemp={highTemp}
+        lowTemp={lowTemp}
+        cloudiness={cloudiness}
+        humidity={humidity}
+        windSpeed={windSpeed}
+      />
     </div>
   );
 }
