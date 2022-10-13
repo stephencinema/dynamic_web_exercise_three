@@ -4,6 +4,7 @@ import { WEATHER_APP_APT_KEY } from "../API_KEYS";
 import WeatherCard from "../components/WeatherCard";
 import { useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
+import { isLabelWithInternallyDisabledControl } from "@testing-library/user-event/dist/utils";
 
 function Home() {
   // Value stored in state for weather data
@@ -43,19 +44,20 @@ function Home() {
   console.log("state value", weatherData);
 
   return (
-    <div>
-      <Header></Header>
-      <h1>Weather App</h1>
-      <WeatherCard
-        city={city}
-        weatherType={weatherType}
-        currentTemp={currentTemp}
-        highTemp={highTemp}
-        lowTemp={lowTemp}
-        cloudiness={cloudiness}
-        humidity={humidity}
-        windSpeed={windSpeed}
-      />
+    <div style={{ backgroundColor: `rgba(0,0,0,${cloudiness / 100})` }}>
+      <div className="weatherCard">
+        <Header />
+        <WeatherCard
+          city={city}
+          weatherType={weatherType}
+          currentTemp={currentTemp}
+          highTemp={highTemp}
+          lowTemp={lowTemp}
+          cloudiness={cloudiness}
+          humidity={humidity}
+          windSpeed={windSpeed}
+        />
+      </div>
     </div>
   );
 }

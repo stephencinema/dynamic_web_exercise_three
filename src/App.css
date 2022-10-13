@@ -1,1 +1,85 @@
+.App {
+  min-height: calc(100vh-50px);
+}
 
+a,
+p,
+h2,
+h3 {
+  color: white;
+}
+
+h1 {
+  color: black;
+}
+
+#header--container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: right;
+}
+
+.header--item {
+  margin: 0 10px;
+  margin-top: 300px;
+}
+
+#weatherCard {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+  max-width: 500px;
+  padding: 30px;
+}
+
+.weatherCard--cityName {
+  font-weight: 300;
+}
+
+.weatherCard--type {
+  font-weight: 700;
+}
+
+.weatherCard--temp {
+  font-size: 64px;
+  margin-top: -10px;
+}
+
+.weatherCard--stats {
+  margin-top: -275px;
+  margin-left: 340px;
+}
+
+.weatherCard--weatherType svg {
+  height: auto;
+  width: 130px;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: gray;
+  text-decoration: none;
+}
+
+a:active {
+  color: gray;
+  text-decoration: none;
+}
+
+svg {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
