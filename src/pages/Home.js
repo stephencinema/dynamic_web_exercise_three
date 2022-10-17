@@ -45,18 +45,20 @@ function Home() {
 
   return (
     <div style={{ backgroundColor: `rgba(0,0,0,${cloudiness / 100})` }}>
-      <div className="weatherCard">
-        <Header />
-        <WeatherCard
-          city={city}
-          weatherType={weatherType}
-          currentTemp={currentTemp}
-          highTemp={highTemp}
-          lowTemp={lowTemp}
-          cloudiness={cloudiness}
-          humidity={humidity}
-          windSpeed={windSpeed}
-        />
+      <div className="weatherCard--container">
+        <div>
+          <Header />
+          <WeatherCard
+            city={city}
+            weatherType={weatherType}
+            currentTemp={currentTemp}
+            highTemp={highTemp}
+            lowTemp={lowTemp}
+            cloudiness={cloudiness}
+            humidity={humidity}
+            windSpeed={windSpeed}
+          />
+        </div>
       </div>
     </div>
   );
